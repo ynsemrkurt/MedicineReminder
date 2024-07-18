@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Medicine Reminder</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="channel_name">Medicine Reminder Channel</string>
+    <string name="channel_description">Channel for Medicine Reminder</string>
+    <string name="reminder_settings">Reminder Settings</string>
+    <string name="delete">DELETE</string>
+    <string name="reminder_settings_big">REMINDER SETTINGS</string>
+    <string name="medicine_reminder">MEDICINE REMINDER</string>
+    <string name="edit_medicine_reminder">Edit Medicine Reminder</string>
+    <string name="medicine_name">Medicine Name</string>
+    <string name="dosage">Dosage</string>
+    <string name="hour">Hour</string>
+    <string name="minute">Minute</string>
+    <string name="save">SAVE</string>
+    <string name="twoDot">:</string>
+    <string name="medicine_reminder_small">Medicine Reminder</string>
+    <string name="medicine_name_small">Medicine Name</string>
+    <string name="twodot">:</string>
+    <string name="_07_00">07:00</string>
+    <string name="_2_dosage">2 Dosage</string>
+    <string name="parol">Parol</string>
+    <string name="delete_medicine_reminder">Delete Medicine Reminder</string>
+    <string name="delete_p">Are you sure you want to delete it? Once deleted, you won\'t be able to access the alarms you\'ve deleted again!</string>
 </resources>

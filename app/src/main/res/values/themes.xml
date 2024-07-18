@@ -3,6 +3,11 @@
     <style name="Base.Theme.MedicineReminder" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:fontFamily">@font/alata</item>
+    </style>
+
+    <style name="TransparentDialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="Theme.MedicineReminder" parent="Base.Theme.MedicineReminder" />
