@@ -1,4 +1,4 @@
-# Medicine Reminder #1
+# Medicine Reminder
 
 ## Overview
 This application is a mobile app that helps users remember their medications. Users can add reminders for specific medications and receive notifications when it's time to take them.
