@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
         permissionNotification()
@@ -25,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         createNotificationChannel()
     }
 
-    // Belirtilen fragmentı açmak için kullanılır
     fun openFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.containerView, fragment)
@@ -33,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    // Bildirim kanalını oluşturur
     private fun createNotificationChannel() {
         val name = getString(R.string.channel_name)
         val descriptionText = getString(R.string.channel_description)
@@ -42,11 +39,10 @@ class MainActivity : AppCompatActivity() {
             description = descriptionText
         }
         val notificationManager: NotificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
 
-    // Android 12 ve üzeri için alarm izni sağlar
     private fun permissionAlarms() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (!getSystemService(AlarmManager::class.java).canScheduleExactAlarms()) {
@@ -56,7 +52,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Android 12 ve üzeri için bildirim izni sağlar
     private val appPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {}
 

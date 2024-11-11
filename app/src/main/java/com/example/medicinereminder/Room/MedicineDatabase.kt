@@ -13,7 +13,6 @@ abstract class MedicineDatabase : RoomDatabase() {
         private var instance: MedicineDatabase? = null
 
         fun getDatabase(context: Context): MedicineDatabase {
-            // Eğer instance null ise, yeni bir veritabanı oluşturur
             if (instance == null) {
                 instance = Room.databaseBuilder(
                     context,
@@ -22,7 +21,6 @@ abstract class MedicineDatabase : RoomDatabase() {
                 ).allowMainThreadQueries()
                     .build()
             }
-            // Veritabanı nesnesini döndür
             return instance as MedicineDatabase
         }
     }

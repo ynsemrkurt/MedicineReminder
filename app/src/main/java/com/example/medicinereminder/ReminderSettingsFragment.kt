@@ -30,7 +30,6 @@ class ReminderSettingsFragment : Fragment() {
             requireActivity().onBackPressed()
         }
 
-        //RecyclerView'i kurar
         binding.recyclerViewReminder.layoutManager = LinearLayoutManager(requireContext())
         medicineAdapter = MedicineAdapter(requireContext())
         binding.recyclerViewReminder.adapter = medicineAdapter
@@ -38,7 +37,6 @@ class ReminderSettingsFragment : Fragment() {
         loadMedicines()
     }
 
-    //Database'den verileri çeker
     private fun loadMedicines() {
         val medicineDao = MedicineDatabase.getDatabase(requireContext()).medicineDao()
         val medicineList: List<Medicine> = medicineDao.getAllMedicines()

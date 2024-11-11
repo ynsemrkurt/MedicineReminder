@@ -34,7 +34,6 @@ class MedicineAdapter(private val context: Context) :
         holder.bind(currentItem)
     }
 
-    // Verilen yeni medicine listesini RecyclerView'a gönderir
     fun submitMedicineList(newList: List<Medicine>) {
         submitList(newList)
     }
@@ -44,21 +43,18 @@ class MedicineAdapter(private val context: Context) :
         fun bind(medicine: Medicine) {
             binding.textViewMedicine.text = medicine.name
             binding.textViewTime.text = medicine.timeToTake
-            binding.textViewDosage.text = "${medicine.dosage} Dosage"
+            binding.textViewDosage.text = context.getString(R.string.maybe_dosage, medicine.dosage)
 
-            // Medicine silinir Alarm silinir.
             binding.imageButtonDelete.setOnClickListener {
                 showDeleteDialog(medicine)
             }
 
-            // Dialog açar
             binding.imageButtonEdit.setOnClickListener {
                 showEditDialog(medicine)
             }
         }
     }
 
-    // Medicine silme işlemini gerçekleştirir
     private fun deleteMedicine(deletedItem: Medicine) {
         val dao = MedicineDatabase.getDatabase(context).medicineDao()
         dao.delete(deletedItem)
@@ -66,7 +62,6 @@ class MedicineAdapter(private val context: Context) :
         showToast("Medicine Reminder Deleted!")
     }
 
-    // Alarmı iptal eder
     private fun cancelAlarm(medicine: Medicine) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, MedicineReminderReceiver::class.java)
@@ -80,12 +75,10 @@ class MedicineAdapter(private val context: Context) :
         pendingIntent.cancel()
     }
 
-    // Toast mesajını gösterir
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    // Düzenleme dialogunu gösterir
     private fun showEditDialog(medicine: Medicine) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_edit_medicine, null)
         val alertDialogBuilder = AlertDialog.Builder(context, R.style.TransparentDialog)
@@ -108,7 +101,6 @@ class MedicineAdapter(private val context: Context) :
             var updatedHour = editTextHour.text.toString()
             var updatedMinute = editTextMinute.text.toString()
 
-            // Gerekli alanların doldurulup doldurulmadığını kontrol eder
             if (updatedName.isBlank() || updatedDosage.isBlank() || updatedHour.isBlank() || updatedMinute.isBlank()) {
                 showToast("Please fill in all fields!")
                 return@setOnClickListener
@@ -120,7 +112,6 @@ class MedicineAdapter(private val context: Context) :
                 return@setOnClickListener
             } else {
 
-                // Saat ve dakika değerlerini kontrol eder ve 0 ekler
                 if (updatedHour.length==1 && updatedHour.toInt() in 0..9) {
                     updatedHour = "0$updatedHour"
                 }
@@ -143,7 +134,6 @@ class MedicineAdapter(private val context: Context) :
         alertDialogBuilder.show()
     }
 
-    // Medicine silme dialogunu gösterir
     private fun showDeleteDialog(medicine: Medicine) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_delete_medicine, null)
         val alertDialogBuilder = AlertDialog.Builder(context, R.style.TransparentDialog)
@@ -167,7 +157,6 @@ class MedicineAdapter(private val context: Context) :
         alertDialogBuilder.show()
     }
 
-    // Medicine Reminder'i planlar
     private fun scheduleMedicineReminder(context: Context, medicine: Medicine) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, MedicineReminderReceiver::class.java).apply {
@@ -192,7 +181,6 @@ class MedicineAdapter(private val context: Context) :
             set(Calendar.MILLISECOND, 0)
         }
 
-        // Alarm zamanı bugün için geçmişse bir sonraki gün için ayarlar
         alarmClockInfo = if (calendar.timeInMillis < System.currentTimeMillis()) {
             AlarmManager.AlarmClockInfo(calendar.timeInMillis + 86400000, pendingIntent)
         } else {
@@ -202,14 +190,12 @@ class MedicineAdapter(private val context: Context) :
         alarmManager.setAlarmClock(alarmClockInfo!!, pendingIntent)
     }
 
-    // Medicine verisini günceller
     private fun updateMedicine(updatedMedicine: Medicine) {
         val dao = MedicineDatabase.getDatabase(context).medicineDao()
         dao.update(updatedMedicine)
         submitMedicineList(dao.getAllMedicines())
     }
 
-    // Medicine listesi için fark algoritması
     private class MedicineDiffCallback : DiffUtil.ItemCallback<Medicine>() {
         override fun areItemsTheSame(oldItem: Medicine, newItem: Medicine): Boolean {
             return oldItem.id == newItem.id

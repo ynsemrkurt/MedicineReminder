@@ -14,19 +14,19 @@ import java.util.Calendar
 
 class MedicineReminderReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        //intentten gelen verileri çeker
+
         val medicineName = intent.getStringExtra("medicineName")
         val medicineDosage = intent.getStringExtra("medicineDosage")
         val medicineId = intent.getIntExtra("medicineId", -1)
         val medicineTime = intent.getStringExtra("medicineTime")
-        //Bildirimi oluşturur
+
         val builder = NotificationCompat.Builder(context, "1")
-            .setSmallIcon(R.drawable.logo)
+            .setSmallIcon(R.drawable.logo_medicine)
             .setContentTitle("Medicine Reminder")
             .setContentText("It's time to take your $medicineName, $medicineDosage dosage")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         with(NotificationManagerCompat.from(context)) {
-            //Bildirim izni varsa bildirimi gösterir
+
             if (ActivityCompat.checkSelfPermission(
                     context,
                     Manifest.permission.POST_NOTIFICATIONS
@@ -36,7 +36,6 @@ class MedicineReminderReceiver : BroadcastReceiver() {
             }
         }
 
-        //Aynı bildirimi tekrar sonraki güne ekler
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, MedicineReminderReceiver::class.java).apply {
             putExtra("medicineName", medicineName)

@@ -22,12 +22,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Medicine Fragment'ı Açmak için kullanılır
         binding.buttonMedicine.setOnClickListener {
             (activity as MainActivity).openFragment(MedicineFragment())
         }
 
-        //Reminder Settings Fragment'ı Açmak için kullanılır
         binding.buttonSettings.setOnClickListener {
             (activity as MainActivity).openFragment(ReminderSettingsFragment())
         }

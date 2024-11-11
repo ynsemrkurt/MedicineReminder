@@ -32,7 +32,6 @@ class MedicineFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Databaseyi belirtir
         val medicineDatabase: MedicineDatabase = MedicineDatabase.getDatabase(requireContext())
 
         binding.imageButtonBack.setOnClickListener {
@@ -40,7 +39,6 @@ class MedicineFragment : Fragment() {
         }
 
         binding.buttonSave.setOnClickListener {
-            //Verileri kontrol eder
             if (binding.editTextMedicine.text.toString().trim().isEmpty()) {
                 showToast("Please enter medicine name")
                 return@setOnClickListener
@@ -62,7 +60,6 @@ class MedicineFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            //Saat ve dakika değerlerini kontrol eder gerekirse 0 ekler
             if (binding.editTextHour.text.toString().length == 1 && binding.editTextHour.text.toString()
                     .toInt() in 0..9
             ) {
@@ -80,16 +77,13 @@ class MedicineFragment : Fragment() {
             val time =
                 binding.editTextHour.text.toString() + ":" + binding.editTextMinute.text.toString()
             val medicine = Medicine(name = name, dosage = dosage, timeToTake = time)
-            //Veritabanına ekler
             val medicineId = medicineDatabase.medicineDao().insert(medicine)
-            //Medicine nesnesinin id'sini alır
             medicine.id = medicineId.toInt()
             scheduleMedicineReminder(requireContext(), medicine)
             showMaterialDialog()
         }
     }
 
-    //AlarmManager'a ekler
     private fun scheduleMedicineReminder(context: Context, medicine: Medicine) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, MedicineReminderReceiver::class.java).apply {
@@ -114,7 +108,6 @@ class MedicineFragment : Fragment() {
             set(Calendar.MILLISECOND, 0)
         }
 
-        //Geçmiş bir saat ise alarmı sonraki güne kurar
         alarmClockInfo = if (calendar.timeInMillis < System.currentTimeMillis()) {
             AlarmManager.AlarmClockInfo(calendar.timeInMillis + 86400000, pendingIntent)
         } else {
@@ -128,7 +121,6 @@ class MedicineFragment : Fragment() {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    //Aynı ilaça ait veri kaydedilecekse sadece saat ve dakika EditText'lerini boşaltır
     private fun showMaterialDialog() {
         MaterialAlertDialogBuilder(requireContext()).setTitle("Reminder Successfully Added")
             .setMessage("Will you set another reminder for this medication?")
@@ -139,7 +131,6 @@ class MedicineFragment : Fragment() {
             }.show()
     }
 
-    //Tüm EditText'leri temizler
     private fun clearAll() {
         binding.editTextMedicine.text.clear()
         binding.editTextDosage.text.clear()
@@ -148,7 +139,6 @@ class MedicineFragment : Fragment() {
         binding.editTextMedicine.requestFocus()
     }
 
-    //Saat ve Dakika EditText'lerini temizler
     private fun clearTime() {
         binding.editTextHour.text.clear()
         binding.editTextMinute.text.clear()
