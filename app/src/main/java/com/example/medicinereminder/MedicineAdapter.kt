@@ -13,8 +13,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.medicinereminder.Room.Medicine
-import com.example.medicinereminder.Room.MedicineDatabase
+import com.example.medicinereminder.Const.MED_DOSAGE
+import com.example.medicinereminder.Const.MED_ID
+import com.example.medicinereminder.Const.MED_NAME
+import com.example.medicinereminder.Const.MED_TIME
+import com.example.medicinereminder.room.Medicine
+import com.example.medicinereminder.room.MedicineDatabase
 import com.example.medicinereminder.databinding.ItemReminderBinding
 import java.util.Calendar
 
@@ -59,7 +63,7 @@ class MedicineAdapter(private val context: Context) :
         val dao = MedicineDatabase.getDatabase(context).medicineDao()
         dao.delete(deletedItem)
         submitMedicineList(dao.getAllMedicines())
-        showToast("Medicine Reminder Deleted!")
+        showToast(context.getString(R.string.medicine_reminder_deleted))
     }
 
     private fun cancelAlarm(medicine: Medicine) {
@@ -102,13 +106,13 @@ class MedicineAdapter(private val context: Context) :
             var updatedMinute = editTextMinute.text.toString()
 
             if (updatedName.isBlank() || updatedDosage.isBlank() || updatedHour.isBlank() || updatedMinute.isBlank()) {
-                showToast("Please fill in all fields!")
+                showToast(context.getString(R.string.please_fill_in_all_fields))
                 return@setOnClickListener
             } else if (updatedHour.toInt() !in 0..23) {
-                showToast("Please enter a valid hour (0-23)")
+                showToast(context.getString(R.string.please_enter_a_valid_hour))
                 return@setOnClickListener
             } else if (updatedMinute.toInt() !in 0..59) {
-                showToast("Please enter a valid minute (0-59)")
+                showToast(context.getString(R.string.please_enter_a_valid_minute))
                 return@setOnClickListener
             } else {
 
@@ -126,7 +130,7 @@ class MedicineAdapter(private val context: Context) :
                 updateMedicine(updatedMedicine)
                 scheduleMedicineReminder(context, updatedMedicine)
 
-                showToast("Medicine Reminder Updated!")
+                showToast(context.getString(R.string.medicine_reminder_updated))
                 alertDialogBuilder.dismiss()
             }
         }
@@ -146,7 +150,7 @@ class MedicineAdapter(private val context: Context) :
         buttonDelete.setOnClickListener {
             deleteMedicine(medicine)
             cancelAlarm(medicine)
-            showToast("Medicine Reminder Updated!")
+            showToast(context.getString(R.string.medicine_reminder_updated))
             alertDialogBuilder.dismiss()
         }
 
@@ -160,10 +164,10 @@ class MedicineAdapter(private val context: Context) :
     private fun scheduleMedicineReminder(context: Context, medicine: Medicine) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, MedicineReminderReceiver::class.java).apply {
-            putExtra("medicineName", medicine.name)
-            putExtra("medicineDosage", medicine.dosage)
-            putExtra("medicineId", medicine.id)
-            putExtra("medicineTime", medicine.timeToTake)
+            putExtra(MED_NAME, medicine.name)
+            putExtra(MED_DOSAGE, medicine.dosage)
+            putExtra(MED_ID, medicine.id)
+            putExtra(MED_TIME, medicine.timeToTake)
         }
         val pendingIntent = medicine.id.let {
             PendingIntent.getBroadcast(

@@ -10,20 +10,29 @@ import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.example.medicinereminder.Const.MED_DOSAGE
+import com.example.medicinereminder.Const.MED_ID
+import com.example.medicinereminder.Const.MED_NAME
+import com.example.medicinereminder.Const.MED_TIME
 import java.util.Calendar
 
 class MedicineReminderReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
 
-        val medicineName = intent.getStringExtra("medicineName")
-        val medicineDosage = intent.getStringExtra("medicineDosage")
-        val medicineId = intent.getIntExtra("medicineId", -1)
-        val medicineTime = intent.getStringExtra("medicineTime")
+        val medicineName = intent.getStringExtra(MED_NAME)
+        val medicineDosage = intent.getStringExtra(MED_DOSAGE)
+        val medicineId = intent.getIntExtra(MED_ID, -1)
+        val medicineTime = intent.getStringExtra(MED_TIME)
 
         val builder = NotificationCompat.Builder(context, "1")
             .setSmallIcon(R.drawable.logo_medicine)
-            .setContentTitle("Medicine Reminder")
-            .setContentText("It's time to take your $medicineName, $medicineDosage dosage")
+            .setContentTitle(context.getString(R.string.app_name))
+            .setContentText(
+                context.getString(
+                    R.string.it_s_time_to_take_your_dosage,
+                    medicineName,
+                    medicineDosage
+                ))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         with(NotificationManagerCompat.from(context)) {
 
@@ -38,10 +47,10 @@ class MedicineReminderReceiver : BroadcastReceiver() {
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, MedicineReminderReceiver::class.java).apply {
-            putExtra("medicineName", medicineName)
-            putExtra("medicineDosage", medicineDosage)
-            putExtra("medicineId", medicineId)
-            putExtra("medicineTime", medicineTime)
+            putExtra(MED_NAME, medicineName)
+            putExtra(MED_DOSAGE, medicineDosage)
+            putExtra(MED_ID, medicineId)
+            putExtra(MED_TIME, medicineTime)
         }
         val pendingIntent = medicineId.let {
             PendingIntent.getBroadcast(

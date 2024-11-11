@@ -10,8 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.medicinereminder.Room.Medicine
-import com.example.medicinereminder.Room.MedicineDatabase
+import com.example.medicinereminder.Const.MED_DOSAGE
+import com.example.medicinereminder.Const.MED_ID
+import com.example.medicinereminder.Const.MED_NAME
+import com.example.medicinereminder.Const.MED_TIME
+import com.example.medicinereminder.room.Medicine
+import com.example.medicinereminder.room.MedicineDatabase
 import com.example.medicinereminder.databinding.FragmentMedicineBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Calendar
@@ -40,23 +44,23 @@ class MedicineFragment : Fragment() {
 
         binding.buttonSave.setOnClickListener {
             if (binding.editTextMedicine.text.toString().trim().isEmpty()) {
-                showToast("Please enter medicine name")
+                showToast(getString(R.string.please_enter_medicine_name))
                 return@setOnClickListener
             }
             if (binding.editTextDosage.text.toString().trim().isEmpty()) {
-                showToast("Please enter dosage")
+                showToast(getString(R.string.please_enter_dosage))
                 return@setOnClickListener
             }
             if (binding.editTextHour.text.toString().trim()
                     .isEmpty() || binding.editTextHour.text.toString().toInt() > 23
             ) {
-                showToast("Please enter valid hour")
+                showToast(getString(R.string.please_enter_valid_hour))
                 return@setOnClickListener
             }
             if (binding.editTextMinute.text.toString().trim()
                     .isEmpty() || binding.editTextMinute.text.toString().toInt() > 59
             ) {
-                showToast("Please enter valid minute")
+                showToast(getString(R.string.please_enter_valid_minute))
                 return@setOnClickListener
             }
 
@@ -87,10 +91,10 @@ class MedicineFragment : Fragment() {
     private fun scheduleMedicineReminder(context: Context, medicine: Medicine) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, MedicineReminderReceiver::class.java).apply {
-            putExtra("medicineName", medicine.name)
-            putExtra("medicineDosage", medicine.dosage)
-            putExtra("medicineId", medicine.id)
-            putExtra("medicineTime", medicine.timeToTake)
+            putExtra(MED_NAME, medicine.name)
+            putExtra(MED_DOSAGE, medicine.dosage)
+            putExtra(MED_ID, medicine.id)
+            putExtra(MED_TIME, medicine.timeToTake)
         }
         val pendingIntent = medicine.id.let {
             PendingIntent.getBroadcast(
@@ -122,11 +126,11 @@ class MedicineFragment : Fragment() {
     }
 
     private fun showMaterialDialog() {
-        MaterialAlertDialogBuilder(requireContext()).setTitle("Reminder Successfully Added")
-            .setMessage("Will you set another reminder for this medication?")
-            .setPositiveButton("Add") { _, _ ->
+        MaterialAlertDialogBuilder(requireContext()).setTitle(getString(R.string.reminder_successfully_added))
+            .setMessage(getString(R.string.will_you_set_another_reminder_for_this_medication))
+            .setPositiveButton(getString(R.string.add)) { _, _ ->
                 clearTime()
-            }.setNegativeButton("Cancel") { _, _ ->
+            }.setNegativeButton(getString(R.string.cancel)) { _, _ ->
                 clearAll()
             }.show()
     }
