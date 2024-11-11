@@ -1,4 +1,4 @@
-package com.example.medicinereminder.Room
+package com.example.medicinereminder.room
 
 import androidx.room.Dao
 import androidx.room.Delete
