@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="15dp">
+    app:cardCornerRadius="16dp"
+    android:layout_margin="16dp"
+    android:background="?backgroundColor">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:background="@color/white"
+        android:background="?backgroundColor"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,9 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/edit_medicine_reminder"
-            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +33,7 @@
             android:id="@+id/editTextMedicine"
             android:layout_width="300dp"
             android:layout_height="60dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/edit_text_background"
             android:hint="@string/medicine_name"
             android:importantForAutofill="no"
@@ -39,7 +41,6 @@
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -47,7 +48,7 @@
             android:id="@+id/editTextDosage"
             android:layout_width="300dp"
             android:layout_height="60dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/edit_text_background"
             android:hint="@string/dosage"
             android:importantForAutofill="no"
@@ -56,7 +57,6 @@
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.088"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextMedicine" />
 
@@ -64,16 +64,14 @@
             android:id="@+id/editTextHour"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/edit_text_background"
             android:hint="@string/hour"
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="2"
             android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.088"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/editTextDosage"
             app:layout_constraintTop_toBottomOf="@+id/editTextDosage" />
 
 
@@ -94,28 +92,25 @@
             android:id="@+id/editTextMinute"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/edit_text_background"
             android:hint="@string/minute"
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="2"
             android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.911"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/editTextDosage"
             app:layout_constraintTop_toBottomOf="@+id/editTextDosage" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonSave"
             android:layout_width="150dp"
             android:layout_height="60dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/button_background"
-            android:backgroundTint="@color/black"
             android:text="@string/save"
-            android:textColor="@color/white"
+            android:textColor="?backgroundColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -123,4 +118,4 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
