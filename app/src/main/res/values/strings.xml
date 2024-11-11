@@ -23,4 +23,19 @@
     <string name="parol">Parol</string>
     <string name="delete_medicine_reminder">Delete Medicine Reminder</string>
     <string name="delete_p">Are you sure you want to delete it? Once deleted, you won\'t be able to access the alarms you\'ve deleted again!</string>
+    <string name="cancel">CANCEL</string>
+    <string name="maybe_dosage">%1$s Dosage</string>
+    <string name="medicine_reminder_deleted">Medicine Reminder Deleted!</string>
+    <string name="please_fill_in_all_fields">Please fill in all fields!</string>
+    <string name="please_enter_a_valid_hour">Please enter a valid hour (0-23)</string>
+    <string name="please_enter_a_valid_minute">Please enter a valid minute (0-59)</string>
+    <string name="medicine_reminder_updated">Medicine Reminder Updated!</string>
+    <string name="reminder_successfully_added">Reminder Successfully Added</string>
+    <string name="will_you_set_another_reminder_for_this_medication">Will you set another reminder for this medication?</string>
+    <string name="add">Add</string>
+    <string name="please_enter_medicine_name">Please enter medicine name</string>
+    <string name="please_enter_dosage">Please enter dosage</string>
+    <string name="please_enter_valid_hour">Please enter valid hour</string>
+    <string name="please_enter_valid_minute">Please enter valid minute</string>
+    <string name="it_s_time_to_take_your_dosage">It\'s time to take your %1$s, %2$s dosage</string>
 </resources>
